@@ -44,7 +44,7 @@ class Zombie:
         self.speed = 0.0
         self.frame = random.randint(0, 9)
         self.state = 'Idle'
-        self.ball_count = 0
+        self.ball_count = 15
 
         self.tx, self.ty = 1000, 1000
         # 여기를 채우시오.
@@ -195,9 +195,7 @@ class Zombie:
 
         flee = Sequence('도망(가까이 있으며, 소년의 공이 더 많으면)', c1, c3, a5)
 
-        chase_boy_or_wander = Selector('추적 아니면 배회', chase_boy, wander)
-
-        root = flee_or_wander = Selector('도망 아니면 배회', flee, wander)
+        root = chase_boy_or_flee_or_wander = Selector('추적 아니면 도망 아니면 배회', chase_boy, flee, wander)
 
         self.bt = BehaviorTree(root)
 
