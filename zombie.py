@@ -44,10 +44,9 @@ class Zombie:
         self.speed = 0.0
         self.frame = random.randint(0, 9)
         self.state = 'Idle'
-        self.ball_count = 15
+        self.ball_count = 5
 
         self.tx, self.ty = 1000, 1000
-        # 여기를 채우시오.
 
         self.build_behavior_tree()
 
@@ -95,14 +94,12 @@ class Zombie:
 
     # 거리 비교 함수
     def distance_less_than(self, x1, y1, x2, y2, r): #r은 미터 단위
-        # 여기를 채우시오.
         distance2 = (x1 - x2) **2 + (y1 - y2) **2
         return distance2 < (PIXEL_PER_METER * r) ** 2
 
 
 
     def move_little_to(self, tx, ty):
-        # 여기를 채우시오.
         # frame_time 을 사용하여 이동 거리를 계산.
         self.dir = math.atan2(ty - self.y, tx - self.x)  # 각도 구하기
         distance = RUN_SPEED_PPS * game_framework.frame_time
@@ -113,7 +110,6 @@ class Zombie:
 
 
     def move_to(self, r=0.5):
-        # 여기를 채우시오.
         self.state = 'Walk'
         self.move_little_to(self.tx, self.ty) # 목적지로 조금 이동.
         if self.distance_less_than(self.tx, self.ty, self.x, self.y, r):
@@ -124,13 +120,11 @@ class Zombie:
 
 
     def set_random_location(self):
-        # 여기를 채우시오.
         self.tx, self.ty = random.randint(100, 1280 - 100), random.randint(100, 1024 - 100)
         return BehaviorTree.SUCCESS
 
 
     def if_boy_nearby(self, distance):
-        # 여기를 채우시오.
         if self.distance_less_than(common.boy.x, common.boy.y, self.x, self.y, distance):
             return BehaviorTree.SUCCESS
         else:
@@ -149,7 +143,6 @@ class Zombie:
             return BehaviorTree.FAIL
 
     def move_to_boy(self, r=0.5):
-        # 여기를 채우시오.
         self.state = 'Walk'
         self.move_little_to(common.boy.x, common.boy.y)
         if self.distance_less_than(common.boy.x, common.boy.y, self.x, self.y, r):
@@ -166,13 +159,11 @@ class Zombie:
             return BehaviorTree.RUNNING
 
     def get_patrol_location(self):
-        # 여기를 채우시오.
         self.tx, self.ty = self.patrol_locations[self.loc_no]
         self.loc_no = (self.loc_no + 1) % len(self.patrol_locations)
         return BehaviorTree.SUCCESS
 
     def build_behavior_tree(self):
-        # 여기를 채우시오.
         # 목표 지점을 설정하는 액션 노드를 생성.
         a1 = Action('Set target location', self.set_target_location, 1000, 1000)
         a2 = Action('Move to', self.move_to)
